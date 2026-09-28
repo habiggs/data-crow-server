@@ -10,7 +10,7 @@ ARG arg_port='9000'
 ARG arg_imageserverport='8082'
 ARG arg_webserverport='8080'
 ARG arg_apiserverport='8081'
-ARG arg_hostname='localhost'
+ARG arg_hostname='0.0.0.0'
 
 ENV XMX=$arg_memxmx
 ENV IP=$arg_ip
