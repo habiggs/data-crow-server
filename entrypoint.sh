@@ -1,1 +1,0 @@
-java -Xmx$XMX -jar /opt/dc-server/datacrow-server.jar -ip:$IP -userdir:/opt/dc-user -port:$PORT -imageserverport:$IMAGESERVERPORT -webserverport:$WEBSERVERPORT

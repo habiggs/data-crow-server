@@ -1,5 +1,7 @@
 FROM ubuntu/jdk:25-26.04_stable
 
+USER root
+
 COPY files/dc-server /opt/dc-server
 
 ARG arg_memxmx='1024m'
