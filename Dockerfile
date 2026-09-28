@@ -1,6 +1,5 @@
 FROM ubuntu/jdk:25-26.04_stable
 
-
 COPY files/dc-server /opt/dc-server
 
 ARG arg_memxmx='1024m'
@@ -15,5 +14,10 @@ ENV PORT=$arg_port
 ENV IMAGESERVERPORT=$arg_imageserverport
 ENV WEBSERVERPORT=$arg_webserverport
 
-CMD java -Xmx$XMX -jar /opt/dc-server/datacrow-server.jar -ip:$IP -userdir:/opt/dc-user -port:$PORT -imageserverport:$IMAGESERVERPORT -webserverport:$WEBSERVERPORT 
+COPY --chmod=755 <<-EOT /entrypoint.sh
+  #!/usr/bin/env bash
+  java -Xmx$XMX -jar /opt/dc-server/datacrow-server.jar -ip:$IP -userdir:/opt/dc-user -port:$PORT -imageserverport:$IMAGESERVERPORT -webserverport:$WEBSERVERPORT
+EOT
+
+ENTRYPOINT ["/entrypoint.sh"]
 
