@@ -1,4 +1,4 @@
-FROM openjdk:11-jre-slim
+FROM ubuntu/jdk:25-26.04_stable
 
 
 COPY files/dc-server /opt/dc-server

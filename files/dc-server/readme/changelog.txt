@@ -1,5 +1,475 @@
 --------------------------------------------------------------------
-Data Crow version 4.11                        Released on 2023-11-xx
+Data Crow version 5.1.4                       Released on 2026-06-18
+--------------------------------------------------------------------
+
+[Fixed]
+- New installations; created and modified were missing the time (fixed forward).
+- Server to client; advanced filter dialog would not open for Books, TV Series and some other modules.
+
+[Changed]
+- Added new API endpoint /login/status/unsecure, used by the Data Crow Reader mobile app to detect unsecure mode and automatically log in as SA.
+- Google Book online search will point users to create a free API key to avoid rate limits being reached.
+- Web; for unsecure environments the login will be skipped.
+- Web; references fields now rendered onto the next row if virtical screen limit has been reached.
+
+
+--------------------------------------------------------------------
+Data Crow version 5.1.3 'Server Hotfix'       Released on 2026-06-13
+--------------------------------------------------------------------
+
+[Fixed]
+- Caching issue with modules (web version issue) - dropdown keeps continuously updating.
+- Container tree hierarchy panel did not show items when parent container has been selected.
+- The drive mananger was not using unicode.
+- Major issue with server to think client connections had a session key management issue causing each request to be logged as a new login causing excessive overhead on the server.
+
+[Changed]
+- API server will now log users in with SA and no password if no user has been set up, regardless of credentials provided.
+- Sync Service will do a better job at presenting the best IP address by default.
+
+
+--------------------------------------------------------------------
+Data Crow version 5.1.2 'The Android Version' Released on 2026-06-10
+--------------------------------------------------------------------
+This release brings you the Android version. Data Crow has been updated to support the Data Crow Reader app.
+With this version the new Android App can connect and synchronize itself.
+
+The Data Crow Reader App gives you your collection on your device. Completely offline, complete with all your customizations (if any).
+It does not support updating your items, its purely a reader that can synchronize itself with your Data Crow installation. Connect to either the full Data Crow software (using the new Sync Service) or the server edition.
+Private, offline and completely personal; the Data Crow way. Enjoy!
+
+I will be releasing this officially for iOS as well in the near future.
+
+[New]
+- Data Crow Reader App version 1.00 (for Android). Download and install. You will need to follow the instructions from you handheld as it will require permissions to be installed. Once installed, connect to Data Crow. Log in with your credentials (if you have no user set up, use username SA without a password).
+- Data Crow Sync Service which allows the Data Crow Reader app to connect and synchronize. It supports delta and full synchronization. Full will synchronize everything whereas delta gives all changes (new and updates) since the previous sync. This is used by the Data Crow Reader app.
+
+[Updated]
+- Dependencies updated to their latest version; log4j, tika, jasperreports, metadata-extractor, gson, jsoup, flatlaf, jetty, PDF box.
+- Replaced jaudiotagger with a forked version (from RouHim) as the original was no longer maintained.
+
+[Fixed]
+- Deleting the parent item of editions did not update / remove the underlying editions (making them hidden). Now, the self reference is simply removed, preventing loss of data; editions become main items.
+- [Ticket 163] Author not imported (Open Library online search) (online service pack 2.00.1)
+
+
+--------------------------------------------------------------------
+Data Crow version 5.1.1                       Released on 2026-05-26
+--------------------------------------------------------------------
+This small release mainly contains updates for the web version of Data Crow.
+
+[Fixed]
+- Picture of card view element not updated in server-client mode.
+
+[Changed]
+- Better size of the login dialog.
+- Web; better layout of the overview screen.
+- Web; added support for multiple search conditions.
+- Web; added sorting to the overview.
+
+
+--------------------------------------------------------------------
+Data Crow version 5.1                         Released on 2026-05-18
+--------------------------------------------------------------------
+Picked up and closed off all tickets (well, honestly, not all as I did reject some). 
+Implemented 9 specific online services. Added a new module for TV Series.
+And, introduced a new method for maintaining editions of something.. well, in this case specifically for books and comic books.
+It's a generic piece of functionality, as always, but it is not available through configuration as of yet (you can enable it by editing the module XML though).
+But, (comic) books now can now hold editions (which are basically also (comic) books / works).
+
+I used AI to check all the translation files and had remove obsolete and add missing translations.
+Of course I gave preference to user contributed translations! Thanks for all the help!
+
+Side note: I still do a surprising amount of manual coding.. but AI does help me with laborious tasks.
+However, Data Crow is still very much, with all its flaws, a artisanal product. Lets hope that against all odds it does not become obsolete like many, many "things" very, very likely will.
+
+[New]
+- New module has been added: TV Series. This module allows TV Series to be registered including the episodes. Online Search and file parsing has been also been implemented.
+- Books and Comic Books can now hold editions. This is optional. An edition always belongs to a (comic) book. A (comic) book can have zero, one or multiple editions.
+- Added online update for book editions (does not allow to add, only update).
+- Added an experimental AI online search mode for all modules (text only). You can configure your end point and the modal to be used (you can use Llama, preplexity, etcetera).
+- Added online service: RAWG for games
+- Added online service: Board Games Geeks for board games (ticket 138)
+- Added online service: Metron Comics for comics
+- Added online service: Last.fm for music albums
+- Added online service: MusicBrainz for music albums
+- Added online service: OMDB for movies (no pictures)
+- Added online service: TVmaze for series
+- Added online service: TMDB for series (as additional, was already there for movies)
+- Added online service: The TVDB for series (requires a subscription with The TVDB; 12 USD (currently) per year)
+
+[Changed]
+- [Ticket 155] Feature Request: look up Discogs releases based on Release Code and/​or URL.
+- [Ticket 162] Added support for custom Google Books API keys.
+- [Ticket  88] Suggestion: the Movie Database TV-Series.
+- [Ticket  83] Suggestion: create Multiple Items Fields (field selection)
+- [Ticket 137] Update All: allow appending to selected set of items for multi-select instead of only overwriting
+- [Ticket 132] Add option to copy image to memory (added right-click to picture field; copy option)
+- [Ticket  84] Suggestion: Quick Search; added an optional field selection to the quick search / filter
+- Updated / solidified the open library online service for books.
+- Updated the Dutch translation (me). Removed obsolete translation and added missing and new translations.
+- Updated the French translation (Claude AI). Removed obsolete translation and added missing and new translations.
+- Updated the German translation (thanks iro-de + used Claude AI to cleanup the file and close historic gaps in the translations).
+- Updated the Italian translation (Claude AI). Removed obsolete translation and added missing and new translations.
+- Updated the Polish translation (thanks to Ariel Chyłek + used Claude AI to cleanup the file and close historic gaps in the translations).
+- Updated the Portuguese translation (thanks to Ariel Chyłek + used Claude AI to cleanup the file and close historic gaps in the translations).
+- Updated the Russian translation (Claude AI). Removed obsolete translation and added missing and new translations.
+- Updated the Spanish translation (Claude AI). Removed obsolete translation and added missing and new translations.
+
+[Fixed]
+- [Ticket 133] Online search: Open Library - Error Message for some ISBNs.
+- [Ticket 127] Tab names were not translated correctly / tab duplication when switching languages.
+  (NOTE: this only works for new installations; delete the tabs.xml file from <userdir>\settings\application to reset in case of issues).
+- Music file import; now merges children. It will take the new set of children and update it with the old information to prevent loss of information.
+- Create multiple items dialog did not remember its size.
+- Buttons of item form were not enabled after a validation warning.
+- Quik view is not updated with children after create multiple.
+- Advanced filters did not handle combinations of And and Or entries correctly. Now, or entries are treated as one group and the ands will always be applied. (technically this means it now works as follows: give me all where (x = z or y = a) and a = b and c = d)
+
+
+--------------------------------------------------------------------
+Data Crow version 5.0.3                       Released on 2026-03-11
+--------------------------------------------------------------------
+
+[Fixed]
+- Ticket 147: Error download file with comma in name.
+- Ticket 151: web server: API server cannot be reached. It tries to conmnect to the incorrect address. Changed the startup parameters for the server to accommodate. Provide -hostname and optionally -bindto.
+- Ticket 152: User with correct privileges cannot add or edit images.
+- Ticket 160: Installer updated to version 5.2.4 to overcome an ArrayOutOfBoundsException on Linux.
+
+[Changed]
+- All external packages have been uplifted to their latest respective versions. Most notably Data Crow now uses Jetty version 12.
+- Ticket 150: hide the path to the downloadable files and their names.
+- The executables for Data Crow are no longer signed. The costs for having myself validated as an official software distributor are excessively high, even just for a single year. Changed the executables to call the JAR files instead of wrapping them to avoid false positive virus warnings.
+- Web, item details; save action also added to the action menu.
+- Minimum Java version required: Java 17 (recommended at the time of release: OpenJDK 25 for Linux / OpenJDK 25 by Microsoft for Windows)
+
+
+--------------------------------------------------------------------
+Data Crow version 5.0.2                       Released on 2025-12-04
+--------------------------------------------------------------------
+
+[Fixed]
+- Upgrade issue; image conversion is failing (in very specific situations).
+- On first startup reports are not compiled (error). It was corrected after a restart. It will now always compile them correctly.
+
+
+--------------------------------------------------------------------
+Data Crow version 5.0.1                       Released on 2025-06-18
+--------------------------------------------------------------------
+
+[Changed]
+- Web; added field selection for the search
+- Quick search now correctly searches on boolean values as well
+- JasperReports has been upgraded to version 7.0.3. Data Crow now compiles the reports on startup (if needed).
+- Major library upgrades: Apache Tika from 2.9 to version 3.2 / PDF Box from 2.0 to 3.0.5
+- Reporting: Data Crow now compiles the report templates from JasperReports on startup, if the template was changed. The functionality to deploy your own reports is still there and still the same. The main difference is that Data Crow no longer has deliver compiled reports. Data Crow tracks whether a (re)compile of the report is required.
+
+[Fixed]
+- Reports not working.
+- Issues where some fields were numeric in the database but were expected to be of type varchar.
+- MobyGames online search was broken; uplifted the code to support v2 of their (now paid for...) API.
+
+
+--------------------------------------------------------------------
+Data Crow version 5.0                         Released on 2025-04-29
+--------------------------------------------------------------------
+
+[New]
+- Picture management has been completed changed; Data Crow now allows for unlimited number of pictures to be added.
+- A completely new web version has been created. Start the server using the startup parameters and navigate to: http://<web server IP address>:<web server port>
+
+[Changed]
+- Add from memory for pictures now also allowed URLs to be pasted.
+- Removed the memory usage message from the log; only shown now using the -debug option.
+- Edit as New; external references will no longer be copied as well as online service update information (as it is incorrect source documentation).
+- Create item; when the item form is accidentally closed Data Crow does not warn the user - it just closes the item form and all changes are lost.
+- Larger pictures in the quick view description panel (max 500x400).
+- Added image server address as a parameter (optional).
+- Certain processes in Data Crow were too actively checking for things to do; lowered the polling frequency.
+- Improved the preview for the find and replace.
+- Improved the find and replace regular expression support.
+- Added failed login message if credentials are incorrect.
+- Added clear option to the update all form.
+- On startup the report versions (based on modification date) are checked against the systems reports. If the system reports are newer, the reports in the user folder are updated.
+- Also added the picture preview pane to the icon browser.
+- Create Multiple now adds items in top to bottom order.
+- Scrolling performance has been significantly improved for the card list.
+- Performance improvements for client-server mode have been made.
+- Updated libraries as used by Data Crow to avoid exposure to vulnerabilities: Apache Maven plugins, IZ Pack, Metadata-extractor, Log4j, Bouncy Castle, twelvemonkeys.imageio, org.apache.tika, org.apache.pdfbox, org.jsoup, com.google.code.gson, Xalan, org.hsqldb, org.apache.xmlgraphics.
+- Jasper Reports libraries have been bumped up to version 7.0.
+- XML Export has been updated; empty values are no longer exported | a valid XSD is now generated for both individual modules as well as for the media module | IDs of items are now exported | attachments can now be exported | related references items are exported in full as well as the current summary for the item that references these.
+- XML Import has been updated: no longer need to select the module for which the items are imported. The items as part of the XML know to which module they need to imported for. | IDs are respected  
+- Small layout improvements for the item form and the login dialog.
+- Extended the supported image types for the local art import for movies and music files. 
+
+[Fixed]
+- Ticket 129: alter module: conversion from single reference field to multi-reference field was not working (lost all information on conversion).
+- Ticket 129: alter module: conversion from text/number/decimal field to multi-reference and reference field was not working (errors).
+- Ticket 136: Book; cannot search for ISBN. Updated the book module, allowing ISBN, pages, volume name, edition comment and original year of release to be searched.
+- Database: added missing index for music tracks (performance fix).
+- Port numbers were not remembered (login dialog).
+- Quick view in client-server mode sometimes did not load the pictures fully.
+- Database was not operating in logging mode - there was a fair chance information would be lost in case of a crash.
+- Database write to file delay has been set to zero meaning that Data Crow will write the information more often to disk.
+- IP address not remembered on next startup for the network client. Server details should be stored to the client settings instead.
+- Module settings are now correctly retrieved from the server. For existing clients, not much will change other than the fact that the field settings will be applied as configured on the server. New clients will have their settings based on the server configuration which can then be, in part, overwritten by the user. 
+- Performance on larger databases was very bad when grouping on multi-reference fields.
+- An issue has been fixed where Data Crow is not correctly positioning itself on the main monitor.
+- The open library book search showed a file not found exception if a book cannot be found by its ISBN.
+- The service information was incorrectly stored for the open library online book search. This fix only works for newly added items (after this fix).
+- Password could not be reset from the client (client - server mode)
+- Linux: resizing dialog/forms from the right hand side scrambles the dialog
+- Sorting on multi-reference fields was incorrect.
+- Backups created on Windows do not restore correctly on Linux.
+- Right-click menu on attachment: icon size too large.
+- Icons in main window were blurry.
+- View never updated the status bar when only 1 item has been selected.
+- Attachments menu was missing icons.
+- XML export: schema errors fixed.
+- XML's as created by the export are not valid according to the XSD 
+- In the tree panel, for client-server, numbers are shown as .0
+- Log on errors after the first attempt has failed
+- Uploading images for client<>server is extremely slow
+- Performance issues in general for client<>server setup
+- Fixed an issue where the reports are not available in the stand alone client if the user folder was set up by the server.
+
+[Known Issues]
+- Validation messages for saving of items will always be in the language of the Data Crow configuration.
+- Server executable could no longer be provided due to issue with start up parameters. Any existing server executable should be removed prior to starting the server (java -jar option).
+
+
+--------------------------------------------------------------------
+Data Crow version 5.0 - Release Candidate 2 - Released on 2025-04-10
+--------------------------------------------------------------------
+
+Below are fixes on RC1.
+
+[Fixed]
+- Ticket 139: XML not created correctly
+- Pictures not shown in picture list for client-server mode
+- Log on error after the first attempt has failed
+- Web; cannot login with user with no password
+- XML's as created by the export are not valid according to the XSD 
+- In the tree panel, for client-server, numbers are shown as .0
+- Uploading images for client<>server is extremely slow
+- Performance issues in general for client<>server
+- Web; page number not remembered when navigating back
+- Web; related items is a bit slow (it's now paginated)
+
+
+--------------------------------------------------------------------
+Data Crow version 5.0 - Release Candidate 1 - Released on 2025-03-25
+--------------------------------------------------------------------
+
+[New]
+- Picture management has been completed changed; Data Crow now allows for unlimited number of pictures to be added.
+- A completely new web version has been created. Start the server using the startup parameters and navigate to:
+  http://<web server IP address>:<web server port>
+
+[Changed]
+- Add from memory for pictures now also allowed URLs to be pasted.
+- Removed the memory usage message from the log; only shown now using the -debug option.
+- Edit as New; external references will no longer be copied as well as online service update information (as it is incorrect source documentation).
+- Create item; when the item form is accidentally closed Data Crow does not warn the user - it just closes the item form and all changes are lost.
+- Larger pictures in the quick view description panel (max 500x400).
+- Added image server address as a parameter (optional).
+- Certain processes in Data Crow were too actively checking for things to do; lowered the polling frequency.
+- Improved the preview for the find and replace.
+- Improved the find and replace regular expression support.
+- Added failed login message if credentials are incorrect.
+- Added clear option to the update all form.
+- On startup the report versions (based on modification date) are checked against the systems reports. If the system reports are newer, the reports in the user folder are updated.
+- Also added the picture preview pane to the icon browser.
+- Create Multiple now adds items in top to bottom order.
+- Scrolling performance has been significantly improved for the card list.
+- Performance improvements for client-server mode have been made.
+- Updated libraries as used by Data Crow to avoid exposure to vulnerabilities: Apache Maven plugins, IZ Pack, Metadata-extractor, Log4j, Bouncy Castle, twelvemonkeys.imageio, org.apache.tika, org.apache.pdfbox, org.jsoup, com.google.code.gson, Xalan, org.hsqldb, org.apache.xmlgraphics.
+- Jasper Reports libraries have been bumped up to version 7.0.
+- XML Export has been updated;
+  * empty values are no longer exported.
+  * a valid XSD is now generated for both individual modules as well as for the media module.
+  * IDs of items are now exported.
+  * attachments can now be exported.
+  * related references items are exported in full as well as the current summary for the item that references these.
+- XML Import has been updated:
+  * No longer need to select the module for which the items are imported. The items as part of the XML know to which module they need to imported for.
+  * IDs are respected  
+- Small layout improvements for the item form and the login dialog.
+- Extended the supported image types for the local art import for movies and music files. 
+
+[Fixed]
+- Ticket 129: alter module: conversion from single reference field to multi-reference field was not working (lost all information on conversion).
+- Ticket 129: alter module: conversion from text/number/decimal field to multi-reference and reference field was not working (errors).
+- Ticket 136: Book; cannot search for ISBN. Updated the book module, allowing ISBN, pages, volume name, edition comment and original year of release to be searched.
+- Database: added missing index for music tracks (performance fix).
+- Port numbers were not remembered (login dialog).
+- Quick view in client-server mode sometimes did not load the pictures fully.
+- Database was not operating in logging mode - there was a fair chance information would be lost in case of a crash.
+- Database write to file delay has been set to zero meaning that Data Crow will write the information more often to disk.
+- IP address not remembered on next startup for the network client. Server details should be stored to the client settings instead.
+- Module settings are now correctly retrieved from the server. For existing clients, not much will change other than the fact that the field settings will be applied as configured on the server. New clients will have their settings based on the server configuration which can then be, in part, overwritten by the user. 
+- Performance on larger databases was very bad when grouping on multi-reference fields.
+- An issue has been fixed where Data Crow is not correctly positioning itself on the main monitor.
+- The open library book search showed a file not found exception if a book cannot be found by its ISBN.
+- The service information was incorrectly stored for the open library online book search. This fix only works for newly added items (after this fix).
+- Password could not be reset from the client (client - server mode)
+- Linux: resizing dialog/forms from the right hand side scrambles the dialog
+- Sorting on multi-reference fields was incorrect.
+- Backups created on Windows do not restore correctly on Linux.
+- Right-click menu on attachment: icon size too large.
+- Icons in main window were blurry.
+- View never updated the status bar when only 1 item has been selected.
+- Attachments menu was missing icons.
+- XML export: schema errors fixed.
+
+[Known Issues]
+- Validation messages for saving of items will always be in the language of the Data Crow configuration.
+- Server executable could no longer be provided due to issue with start up parameters. Any existing server executable should be removed prior to starting the server (java -jar option).
+
+[Beta Fixes]
+Below fixes are fixes for bugs introduced by one of the previous beta versions;
+- Resizing the quick view panel triggered and intentional reload / rebuild of the quick view. However, Java stubbornly resizes components at other times as well. Switched this off as this is hampering performance.
+- Ticket 115: list view text not updated after updating item.
+- Ticket 116: add from memory for pictures had a memory leak.
+- Ticket 117: quick view is not reflecting picture /​ image changes
+- Ticket 118: memory leak for the backup process.
+- Ticket 119: date format for date input fields was incorrect for long date formats (including name of the day/month).
+- Ticket 121: date format for date input fields was incorrect for long date formats (including name of the day/month).
+
+- Ticket 122: Memory Leak while adding images to items.
+- Ticket 130: tree not updated when item has been updated.   
+- Ticket 131: sometimes the quick view is not updated when adding a new item. Data Crow then freezes completely.
+- Ticket 134: UI scaling is not saved per client. Sharing a data folder on multiple machines causes the value to be overwritten for all based on the settings of one of the clients.
+- Ticket 135: Quick view not updated when navigating in the card view with the arrow keys
+
+
+--------------------------------------------------------------------
+Data Crow version 5.0  BETA IV                Released on 2024-11-20
+--------------------------------------------------------------------
+
+[Fixed]
+- Database: added missing index for music tracks (performance fix).
+- Port numbers were not remembered (login dialog).
+- Quick view in client-server mode sometimes did not load the pictures fully.
+
+[Changed]
+- Larger pictures in the quick view description panel (max 500x400).
+- Added image server address as a parameter (optional).
+
+[Beta fixes]:
+- Multi-reference fields were all broken.
+- Online search: item was not correctly updated with the music tracks.
+- Various issues with new pictures have been resolved.
+- High CPU usage when the card view is shown.
+
+
+--------------------------------------------------------------------
+Data Crow version 5.0  BETA III               Released on 2024-11-07
+--------------------------------------------------------------------
+I am releasing this version as people had issues upgrading - image conversion was failing.
+This releases addresses this issue (many thanks to Bert for sharing his data with me).
+
+[Fixed]
+- Database was not operating in logging mode - there was a fair chance information would be lost in case of a crash.
+- Database write to file delay has been set to zero meaning that Data Crow will write the information more often to disk.
+- IP address not remembered on next startup for the network client. Server details should be stored to the client settings instead.
+- Module settings are now correctly retrieved from the server. For existing clients, not much will change other than the fact that the field settings will be applied as configured on the server. New clients will have their settings based on the server configuration which can then be, in part, overwritten by the user. 
+- Performance on larger databases was very bad when grouping on multi-reference fields.
+
+[Changed]
+- Every 12 hours a hard synch to disk is performed (by the database). The system will be a bit slower for a few seconds but operations will not be aborted. I chose to do this deliberately for long running systems - to avoid database corruption. Sessions and operations are NOT aborted when this activity is performed. 
+- Certain processes in Data Crow were too actively checking for things to do; lowered the polling frequency.
+
+[Beta fixes]:
+- XML Exporter will always make the paths relative when the pictures are exported for the picture list.
+- Default Data: Data Crow did not show image.
+- Edit as new created too many copies of the images of the original item.
+- Upgrade errors when trying to move / convert the images.
+- Overview will now be refreshed after the images have been converted to make the images appear.
+
+[In Progress]
+- The web version is still in development. Currently a REST service sits on the old web address.
+  I am working on a React (JavaScript) web application (using TypeScript and Bootstrap). 
+- For the future, the Data Crow server will run the images server, the application server and the REST server.
+  The web application is completely decoupled from the application server and can be / has to be deployed into a separate web server. 
+
+
+--------------------------------------------------------------------
+Data Crow version 5.0  BETA II                Released on 2024-10-10
+--------------------------------------------------------------------
+
+[In Progress]
+The web server is being rebuild. The old web server, based on Java Server Faces (PrimeFaces), is dropped.
+In its stead a new, for now, read-only Web version is being build. Over the next few beta versions you see the addition of;
+- a REST web interface API
+- a web application based on ReactJS 
+This has been decided to future proof the Data Crow web server. The web application will be completely decoupled from the Data Crow main code through the use of the REST web api interface.
+The web application could therefore also be deployed on a separate web server and is therefore no longer integrated in the Data Crow server. It will still needs the Data Crow server as this is the server that hosts the data, making it available through the REST web interface (JSON based). 
+This also makes it possible, although unlikely that someone will do this, to integrate with the Data Crow server.
+
+[Fixed]
+- An issue has been fixed where Data Crow is not correctly positioning itself on the main monitor.
+- The open library book search showed a file not found exception if a book cannot be found by its ISBN.
+- The service information was incorrectly stored for the open library online book search. This fix only works for newly added items (after this fix).
+- Password could not be reset from the client (client - server mode)
+- Linux: resizing dialog/forms from the right hand side scrambles the dialog
+- Sorting on multi-reference fields was incorrect.
+- Backups created on Windows do not restore correctly on Linux.
+
+[To be verified]
+- Possible fix for Quick View not showing (to be tested) - issue cannot be reproduced
+
+[Updated]
+- Improved the preview for the find and replace.
+- Improved the find and replace regular expression support.
+- Added failed login message if credentials are incorrect.
+- Added clear option to the update all form.
+- On startup the report versions (based on modification date) are checked against the systems reports. If the system reports are newer, the reports in the user folder are updated.
+- Also added the picture preview pane to the icon browser.
+- Create Multiple now adds items in top to bottom order
+
+[TODO]
+- Web module is being rebuild
+
+
+--------------------------------------------------------------------
+Data Crow version 5.0  BETA I                 Released on 2024-09-19
+--------------------------------------------------------------------
+Data Crow 5.0 is the accumulation of all releases made since picking up Data Crow development.
+Version 4.0 has been alive for a long time.. since July the 23th of 2014 to be exact.
+Lots of things have changed since then, many of the changes could easily have triggered the release of a new major version.
+These past changes combined with the changes as listed below make it justifiable to release a new major version.
+
+[New]
+- Picture management has been completed changed; Data Crow now allows for unlimited number of pictures to be added.
+
+[Updated]
+- Scrolling performance has been significantly improved for the card list.
+- Updated libraries as used by Data Crow to avoid exposure to vulnerabilities: Apache Maven plugins, IZ Pack, Metadata-extractor, Log4j, Bouncy Castle, twelvemonkeys.imageio, org.apache.tika, org.apache.pdfbox, org.jsoup, com.google.code.gson, Xalan, org.hsqldb, org.apache.xmlgraphics.
+- Jasper Reports libraries have been bumped up to version 7.0.
+- XML Export has been updated;
+  * empty values are no longer exported.
+  * a valid XSD is now generated for both individual modules as well as for the media module.
+  * IDs of items are now exported.
+  * attachments can now be exported.
+  * related references items are exported in full as well as the current summary for the item that references these.
+- XML Import has been updated:
+  * No longer need to select the module for which the items are imported. The items as part of the XML know to which module they need to imported for.
+  * IDs are respected  
+- Small layout improvements for the item form and the login dialog.
+- Extended the supported image types for the local art import for movies and music files. 
+
+[Fixed]
+- Right-click menu on attachment: icon size too large.
+- Icons in main window were blurry.
+- View never updated the status bar when only 1 item has been selected.
+- Attachments menu was missing icons.
+- XML export: schema errors fixed.
+
+
+--------------------------------------------------------------------
+Data Crow version 4.11                        Released on 2023-12-04
 --------------------------------------------------------------------
 
 [Fixed]
@@ -26,7 +496,7 @@ Data Crow version 4.11                        Released on 2023-11-xx
 - The default icon size for new installations has been changed to 24x24, field and button heights to 26.
 
 [Removed]
-- Board Game Atlas has gone offline, they no longer exist. The online search has been removed. Trying to find an alternative.
+- Board Game Atlas has gone offline, they no longer exist. The online search has been removed from Data Crow as it has nowhere to connect to. Trying to find an alternative.
 
 
 --------------------------------------------------------------------
