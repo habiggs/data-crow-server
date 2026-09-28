@@ -22,13 +22,13 @@ COPY --chmod=755 <<'EOT' /entrypoint.sh
 #!/usr/bin/env bash
 java -Xmx$XMX \
   -jar /opt/dc-server/datacrow-server.jar \
-  -hostname:PUBLICURL
+  -hostname:PUBLICURL \
   -bindto:$IP \
   -userdir:/opt/dc-user \
   -port:$PORT \
   -imageserverport:$IMAGESERVERPORT \
-  -webserverport:$WEBSERVERPORT
-  -apiserverport:$APISERVERPORT
+  -webserverport:$WEBSERVERPORT \
+  -apiserverport:$APISERVERPORT 
 EOT
 
 ENTRYPOINT ["/entrypoint.sh"]
