@@ -20,6 +20,7 @@ ENV WEBSERVERPORT=$arg_webserverport
 ENV APISERVERPORT=$arg_apiserverport
 ENV HOSTNAME=$arg_hostname
 ENV PUBLICURL=''
+ENV USERACC=''
 
 WORKDIR /opt/dc-server
 
@@ -34,7 +35,8 @@ java -Xmx$XMX \
   -imageserverport:$IMAGESERVERPORT \
   -webserverport:$WEBSERVERPORT \
   -apiserverport:$APISERVERPORT \
-  -api_address_overrule:$PUBLICURL
+  -api_address_overrule:$PUBLICURL \
+  -credentials:$USERACC
 EOT
 
 ENTRYPOINT ["/entrypoint.sh"]
